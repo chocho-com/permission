@@ -1,0 +1,27 @@
+server:
+  port: 8081
+  context-path: /
+
+spring:
+  jackson:
+    default-property-inclusion: ALWAYS
+  datasource:
+    #url: jdbc:sqlserver://120.79.46.144:1433;DatabaseName=titlejudge
+    url: jdbc:mysql://123.56.66.43:3306/titlejudge?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 990223wu
+
+logging:
+  level:
+    root: info
+    edu.cuit.loop.titlejudge.mapper: debug
+
+mybatis:
+  type-aliases-package: edu.cuit.loop.titlejudge.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    call-setters-on-nulls: true
+    cache-enabled: false
+
+

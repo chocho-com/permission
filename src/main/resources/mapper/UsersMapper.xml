@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.cuit.loop.titlejudge.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="edu.cuit.loop.titlejudge.entity.Users">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="UserID" jdbcType="CHAR" property="userid" />
+    <result column="LoginPhone" jdbcType="VARCHAR" property="loginphone" />
+    <result column="UserPassWord" jdbcType="CHAR" property="userpassword" />
+    <result column="UserRealName" jdbcType="VARCHAR" property="userrealname" />
+    <result column="UserStatus" jdbcType="VARCHAR" property="userstatus" />
+  </resultMap>
+
+  <resultMap id="BaseWithRole" type="edu.cuit.loop.titlejudge.vo.UserWithRole">
+    <result column="UserID" jdbcType="CHAR" property="userid" />
+    <result column="LoginPhone" jdbcType="VARCHAR" property="loginphone" />
+    <result column="UserPassWord" jdbcType="CHAR" property="userpassword" />
+    <result column="UserRealName" jdbcType="VARCHAR" property="userrealname" />
+    <result column="UserStatus" jdbcType="VARCHAR" property="userstatus" />
+    <result column="RoleName" jdbcType="VARCHAR" property="rolename" />
+  </resultMap>
+
+  <resultMap id="BaseWithRoleID" type="edu.cuit.loop.titlejudge.vo.UserWithRoleID">
+    <result column="UserID" jdbcType="CHAR" property="userid" />
+    <result column="LoginPhone" jdbcType="VARCHAR" property="loginphone" />
+    <result column="UserPassWord" jdbcType="CHAR" property="userpassword" />
+    <result column="UserRealName" jdbcType="VARCHAR" property="userrealname" />
+    <result column="UserStatus" jdbcType="VARCHAR" property="userstatus" />
+    <result column="RoleID" jdbcType="CHAR" property="roleid" />
+  </resultMap>
+
+  <select id="selectRoleByID" parameterType="java.lang.String" resultMap="BaseWithRole">
+    select RoleName from users
+    LEFT JOIN userRole on users.UserID = userRole.UserID
+    LEFT JOIN role on role.RoleID = userRole.RoleID
+    where users.UserID=#{userid}
+  </select>
+
+
+  <select id="selectRoleIdByID" parameterType="java.lang.String" resultMap="BaseWithRoleID">
+    select role.RoleID from users
+    LEFT JOIN userRole on users.UserID = userRole.UserID
+    LEFT JOIN role on role.RoleID = userRole.RoleID
+    where users.UserID=#{userid}
+  </select>
+
+  <select id="selectByLike" parameterType="map" resultMap="BaseResultMap">
+    select * from users
+    <where>
+      <trim suffixOverrides="and">
+        <if test="loginphone != '' and loginphone != null">
+        LoginPhone = #{loginphone}
+        </if>
+        <if test="userrealname != '' and userrealname != null">
+        and UserRealName = #{userrealname}
+      </if>
+      </trim>
+    </where>
+  </select>
+
+  <select id="selectPassWord" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * from users where LoginPhone = #{loginphone}
+  </select>
+
+  <update id="updatePassword" parameterType="map">
+    update users set UserPassWord = #{userpassword} where UserID = #{userid}
+  </update>
+</mapper>

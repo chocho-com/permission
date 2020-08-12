@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.cuit.loop.titlejudge.mapper.RolemoduleMapper">
+  <resultMap id="BaseResultMap" type="edu.cuit.loop.titlejudge.entity.Rolemodule">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="RoleModuleID" jdbcType="CHAR" property="rolemoduleid" />
+    <result column="RoleID" jdbcType="CHAR" property="roleid" />
+    <result column="ModuleID" jdbcType="CHAR" property="moduleid" />
+  </resultMap>
+
+  <insert id="insertForeach" parameterType="java.util.List">
+    insert into roleModule (RoleModuleID,RoleID,ModuleID) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #{item.rolemoduleid,jdbcType=VARCHAR},
+      #{item.roleid,jdbcType=VARCHAR},
+      #{item.moduleid,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByRoleID" parameterType="java.lang.String">
+    delete from roleModule where RoleID = #{roleid}
+  </delete>
+
+  <select id="selectByRoles" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT ModuleID FROM roleModule
+    LEFT JOIN role on role.RoleID = roleModule.RoleID
+    WHERE role.RoleID = #{roleid}
+  </select>
+</mapper>

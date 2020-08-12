@@ -1,0 +1,2 @@
+webpackJsonp([1],{"2NXm":function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var c={render:function(){var e=this.$createElement,t=this._self._c||e;return t("div",[t("el-alert",{attrs:{title:"欢迎使用职称评审管理系统",type:"success",description:"请在左侧选择您所需的功能。","show-icon":""}})],1)},staticRenderFns:[]};var r=n("VU/8")({},c,!1,function(e){n("c8SW")},"data-v-4955d5b1",null);t.default=r.exports},c8SW:function(e,t){}});
+//# sourceMappingURL=1.4a80d78a8d2f07445135.js.map

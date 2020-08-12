@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.cuit.loop.titlejudge.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="edu.cuit.loop.titlejudge.entity.Role">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="RoleID" jdbcType="CHAR" property="roleid" />
+    <result column="RoleName" jdbcType="VARCHAR" property="rolename" />
+    <result column="RoleStatus" jdbcType="VARCHAR" property="rolestatus" />
+    <result column="RoleOrderNum" jdbcType="INTEGER" property="roleordernum" />
+  </resultMap>
+
+  <select id="selectByLike" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from role where RoleName like '%${_parameter}%' order by RoleOrderNum
+  </select>
+
+    <select id="getMaxNum" resultType="integer">
+        SELECT MAX(RoleOrderNum) FROM role
+    </select>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.cuit.loop.titlejudge.mapper.ModuleMapper">
+  <resultMap id="BaseResultMap" type="edu.cuit.loop.titlejudge.entity.Module">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ModuleID" jdbcType="CHAR" property="moduleid" />
+    <result column="ModuleName" jdbcType="VARCHAR" property="modulename" />
+    <result column="ModuleURL" jdbcType="VARCHAR" property="moduleurl" />
+    <result column="ModuleIcon" jdbcType="VARCHAR" property="moduleicon" />
+    <result column="ParentModuleID" jdbcType="CHAR" property="parentmoduleid" />
+    <result column="ModuleStatus" jdbcType="VARCHAR" property="modulestatus" />
+    <result column="ModuleOrderNum" jdbcType="INTEGER" property="moduleordernum" />
+    <result column="ModuleComponet" jdbcType="VARCHAR" property="modulecomponet" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="redirect" jdbcType="VARCHAR" property="redirect"/>
+  </resultMap>
+
+  <select id="getMaxSort" parameterType="java.lang.String" resultType="integer">
+    select MAX(ModuleOrderNum) from module where ParentModuleID=#{parentmoduleid}
+  </select>
+
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from module where ModuleName = #{modulename}
+  </select>
+
+  <select id="selectAlls" resultMap="BaseResultMap">
+    select * from module ORDER by ModuleOrderNum ASC
+  </select>
+
+  <select id="selectByParent" resultMap="BaseResultMap">
+    select * from module where ParentModuleID = #{parentmoduleid} and ModuleStatus != '0'
+  </select>
+
+</mapper>
