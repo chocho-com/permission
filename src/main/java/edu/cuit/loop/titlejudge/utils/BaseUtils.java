@@ -49,4 +49,8 @@ public class BaseUtils {
         String reslut = new String(base64Decrypt);
         return reslut;
     }
+
+    public static void main(String[] args) {
+        System.out.println(baseEncode("1234"));
+    }
 }
